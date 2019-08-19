@@ -221,33 +221,33 @@ public class AlgorithmizationSolution {
         }
         for(int i = 0; i < count.length; i++) {
 
-            if( count[i] == 1) countPopular ++; // Если весь массив равен единице, то все элементы различны
+            if( count[i] == 1) countPopular ++;
         }
 
         if(countPopular == count.length) System.out.println("This array don`t have popular element");
         else {
             max = count[0];
             for(int i = 0;i < count.length; i ++) {
-                if(max < count[i]) { max = count[i]; temp = i;} // Находим максимальное количество повторяющихся элементов
+                if(max < count[i]) { max = count[i]; temp = i;}
             }
             for(int i = 0; i < count.length; i ++) {
-                if(max == count[i]) {mostpopular ++;}// Находим количество максимально повторяющихся элементов
+                if(max == count[i]) {mostpopular ++;}
             }
-            if(mostpopular == 1) { // Если их количество равно 1 ,то одно число повторяется максимальное количество раз
-                System.out.println("Number " + Array[temp]+" meet " + max+" count"); // Выводим это число
+            if(mostpopular == 1) {
+                System.out.println("Number " + Array[temp]+" meet " + max+" count");
             }
             else {
                 for(int i = 0;i < count.length; i ++) {
-                    if(count[i]==max) { Arraypopular[i] = Array[i];}// Если же таких элементов несколько ,то заполняем новый массив D этими элементами
+                    if(count[i]==max) { Arraypopular[i] = Array[i];}
                 }
 
                 min = Arraypopular[0];
                 temp = 0;
                 for(int i=0;i<Arraypopular.length;i++) {
 
-                    if(min>Arraypopular[i] && Arraypopular[i]!=0) {min=Arraypopular[i]; temp = i;}// Находим в массиве D минимальное число
+                    if(min>Arraypopular[i] && Arraypopular[i]!=0) {min=Arraypopular[i]; temp = i;}
                 }
-                System.out.println("Number "+ min +" meet " + max+" count"); // Выводим минимальное число в массиве ,которое встречается максимальное количество раз
+                System.out.println("Number "+ min +" meet " + max+" count");
 
             }
         }
