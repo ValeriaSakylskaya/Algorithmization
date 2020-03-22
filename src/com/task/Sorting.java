@@ -1,253 +1,225 @@
 package com.task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.List;
+
 public class Sorting {
-    private int index = 0;
-    private int sizeFirstArray = 0;
-    private int sizeSecondArray = 0;
-    private int temp = 0;
-    private int MaxID = 0;
-    private int Enumerator = 0;
-    private int denominator = 0;
-    private int numerator = 0;
-    private int quantity = 0;
-    private boolean isSorted;
-    private ArrayFill fillarray = new ArrayFill();
+
     Scanner in = new Scanner(System.in);
 
-    void JoinArrays() {
-        System.out.print("enter the size first array ");
-        sizeFirstArray = in.nextInt();
-        ArrayList<Integer> firstArr = new ArrayList<Integer>();
-        System.out.print("enter the size second array ");
-        sizeSecondArray = in.nextInt();
-        int[] SecondArray = new int[sizeSecondArray];
-        for (int i = 0; i < sizeFirstArray; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element first array");
-            firstArr.add(in.nextInt());
-        }
-        System.out.println(" First array :" + firstArr);
-        for (int i = 0; i < SecondArray.length; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element second array");
-            SecondArray[i] = in.nextInt();
-        }
-        System.out.println(" Second array :" + SecondArray);
-
-        System.out.println("\n enter the element from which you want to start joining ");
+    /*1. Заданы два одномерных массива с различным количеством элементов и натуральное число k. Объединить их в
+   один массив, включив второй массив между k-м и (k+1) - м элементами первого, при этом не используя
+   дополнительный массив.*/
+    public void combineTwoArraysIntoOne(ArrayList firstArray, ArrayList secondArray) {
+        int index = 0;
+        System.out.println("\nEnter the element from which you want to start joining ");
         index = in.nextInt();
-        for (int i = 0; i < SecondArray.length; i++) {
-            firstArr.add(index, SecondArray[i]);
+        for (int i = 0; i < secondArray.size(); i++) {
+            firstArray.add(index, secondArray.get(i));
             index++;
         }
-        System.out.println("  New  array :" + firstArr);
-
-
+        System.out.println("New  array:" + firstArray);
     }
 
 
-    void SequenceSorting() {
-        System.out.print("enter the size first array ");
-        sizeFirstArray = in.nextInt();
-        ArrayList<Integer> firstArr = new ArrayList<Integer>();
-        System.out.print("enter the size second array ");
-        sizeSecondArray = in.nextInt();
-        int[] SecondArray = new int[sizeSecondArray];
-        for (int i = 0; i < sizeFirstArray; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element second array");
-            firstArr.add(in.nextInt());
+    /*2. Даны две последовательности
+    a1 <= a2 <=…<=an   и b1<=b2<=…<=bm
+    . Образовать из них новую последовательность
+    чисел так, чтобы она тоже была неубывающей. Примечание. Дополнительный массив не использовать.*/
+    public void combineTwoArraysInNonDecreasingSequence(ArrayList firstArray, ArrayList secondArray) {
+        Collections.sort(firstArray);
+        Collections.sort(secondArray);
+        for (int i = 0; i < secondArray.size(); i++) {
+            firstArray.add(secondArray.get(i));
         }
-        Collections.sort(firstArr);
-        System.out.println(" First array :" + firstArr);
-        for (int i = 0; i < SecondArray.length; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element second array");
-            SecondArray[i] = in.nextInt();
-        }
-        Arrays.sort(SecondArray);
-        System.out.println(" Second array :");
-        for (int i = 0; i < SecondArray.length; i++) {
-            System.out.print(SecondArray[i] + " ");
-        }
-        for (int i = 0; i < SecondArray.length; i++) {
-            firstArr.add(SecondArray[i]);
-        }
-        Collections.sort(firstArr);
-        System.out.println("\n  New  array :" + firstArr);
+        Collections.sort(firstArray);
+        System.out.println("\nNew  array :" + firstArray);
 
     }
 
-    void SelectionSort() {
-        System.out.print("enter the size  array ");
-        index = in.nextInt();
-        int[] InputArray = new int[index];
-        fillarray.fillInt(InputArray);
-        System.out.println("  Array  before sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
+    /*3. Сортировка выбором. Дана последовательность чисел
+    a1 <= a2 <=…<=an
+    .Требуется переставить элементы так,
+    чтобы они были расположены по убыванию. Для этого в массиве, начиная с первого, выбирается наибольший
+    элемент и ставится на первое место, а первый - на место наибольшего. Затем, начиная со второго, эта процедура
+    повторяется. Написать алгоритм сортировки выбором.*/
+    void sortArrayBySelectionSort(int[] array) {
+        int maxElementId = 0;
+        int swappedElement = 0;
+        System.out.print("Enter the size  array ");
+        System.out.println("Array  before sort:");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
-        for (int i = 0; i < InputArray.length; i++) {
-            MaxID = i;
-            for (int j = i; j < InputArray.length; j++) {
-                if (InputArray[j] > InputArray[MaxID]) {
-                    MaxID = j;
-                }
+        for (int i = 0; i < array.length; i++) {
+            maxElementId = i;
+            for (int j = i; j < array.length; j++) {
+                if (array[j] > array[maxElementId])
+                    maxElementId = j;
+
             }
-            temp = InputArray[i];
-            InputArray[i] = InputArray[MaxID];
-            InputArray[MaxID] = temp;
+            swappedElement = array[i];
+            array[i] = array[maxElementId];
+            array[maxElementId] = swappedElement;
         }
         System.out.println("\n Array  after sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
     }
 
-    void InsertionSort() {
-        System.out.print("enter the size  array ");
-        index = in.nextInt();
-        int[] InputArray = new int[index];
-        fillarray.fillInt(InputArray);
-        System.out.println("  Array  before sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
-        }
+    /*4. Сортировка обменами. Дана последовательность чисел
+    a1 <= a2 <=…<=an
+.Требуется переставить числа в
+    порядке возрастания. Для этого сравниваются два соседних числа
+  ai  и ai+1     . Если   ai > ai+1    , то делается    перестановка.
+     Так продолжается до тех пор, пока все элементы не станут расположены в порядке возрастания.
+    Составить алгоритм сортировки, подсчитывая при этом количества перестановок.*/
 
-        for ( int i = 1; i < InputArray.length; i++) {
-            index = BinarySearch (InputArray, 0, i, InputArray[i]);
-            if (index < i) {
-                temp = InputArray[i];
-                for ( int j = i - 1; j >= index; j--)
-                    InputArray[j + 1] = InputArray[j];
-                InputArray[index] = temp;
+    void sortMatrixByExchangeSorting(int[] array) {
+        int swappedElement = 0;
+        int enumerator = 0;
+        System.out.println("Array  before sort:");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - 1 - i; j++) {
+                if (array[j] > array[j + 1]) {
+                    swappedElement = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = swappedElement;
+                    enumerator++;
+                }
             }
         }
-        System.out.println("  Array  after sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
+        System.out.println("Array  after sort:");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("Number of permutations " + enumerator);
+    }
+
+
+    /*5. Сортировка вставками. Дана последовательность чисел
+     a1 , a2 …an. Требуется переставить числа в порядке
+    возрастания. Делается это следующим образом. Пусть a1,a2,…,ai- упорядоченная последовательность,
+     a1 <= a2 <=…<=a1
+    . Берется следующее число ai+1
+    и вставляется в последовательность так, чтобы новая
+    последовательность была тоже возрастающей. Процесс производится до тех пор, пока все элементы от i +1 до n
+    не будут перебраны. Примечание. Место помещения очередного элемента в отсортированную часть производить
+    с помощью двоичного поиска. Двоичный поиск оформить в виде отдельной функции.
+    */
+    void sortArrayByInsertionSort(int[] array) {
+        int index = 0;
+        int swappedElement = 0;
+        System.out.println("Array  before sort:");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        for (int i = 1; i < array.length; i++) {
+            index = performBinarySearchIntoResult(array, 0, i, array[i]);
+            if (index < i) {
+                swappedElement = array[i];
+                for (int j = i - 1; j >= index; j--)
+                    array[j + 1] = array[j];
+                array[index] = swappedElement;
+            }
+        }
+        System.out.println("Array  after sort:");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
     }
 
-    void SortShell() {
-        System.out.print("enter the size  array ");
-        index = in.nextInt();
-        int[] InputArray = new int[index];
-        fillarray.fillInt(InputArray);
-        System.out.println("  Array  before sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
+    /* бинарный поиск*/
+    private int performBinarySearchIntoResult(int Array[], int bottomElementIndex, int topElementIndex, int key) {
+        int middleElementIndex;
+        if (bottomElementIndex == topElementIndex)
+            return bottomElementIndex;
+        middleElementIndex = bottomElementIndex + ((topElementIndex - bottomElementIndex) / 2);
+        if (key > Array[middleElementIndex])
+            return performBinarySearchIntoResult(Array, middleElementIndex + 1, topElementIndex, key);
+        else if (key < Array[middleElementIndex])
+            return performBinarySearchIntoResult(Array, bottomElementIndex, middleElementIndex, key);
+        return middleElementIndex;
+    }
+
+    /*6. Сортировка Шелла. Дан массив n действительных чисел. Требуется упорядочить его по возрастанию.
+    Делается это следующим образом: сравниваются два соседних элемента
+    ai и ai+1. Если ai <= ai+1 , то продвигаются
+    на один элемент вперед. Если ai > ai+1
+    , то производится перестановка и сдвигаются на один элемент назад.
+    Составить алгоритм этой сортировки.
+    */
+    void sortArrayBySortShell(int[] matrix) {
+        int swappedElement = 0;
+        System.out.println("Array  before sort:");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print(matrix[i] + " ");
         }
         int j = 0;
-        while ((j + 1) < InputArray.length)
-            if (InputArray[j] > InputArray[j + 1]) {
-                temp = InputArray[j];
-                InputArray[j] = InputArray[j + 1];
-                InputArray[j + 1] = temp;
-                if (j > 0) {
+        while ((j + 1) < matrix.length)
+            if (matrix[j] > matrix[j + 1]) {
+                swappedElement = matrix[j];
+                matrix[j] = matrix[j + 1];
+                matrix[j + 1] = swappedElement;
+                if (j > 0)
                     j--;
-                }
-            } else {
+            } else
                 j++;
-            }
         System.out.println("\n Array  after sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print(matrix[i] + " ");
         }
     }
+/*7. Пусть даны две неубывающие последовательности действительных чисел
+ a1 <= a2 <=…<=an   и b1<=b2<=…<=bm.
+Требуется указать те места, на которые нужно вставлять элементы последовательности
+b1<=b2<=…<=bm.В первую последовательность так, чтобы новая последовательность оставалась возрастающей.*/
 
-    void SearchForInsertionPlace() {
-        System.out.print("enter the size first array ");
-        sizeFirstArray = in.nextInt();
-        ArrayList<Integer> firstArr = new ArrayList<Integer>();
-        System.out.print("enter the size second array ");
-        sizeSecondArray = in.nextInt();
-        ArrayList<Integer> SecondArray = new ArrayList<Integer>();
-        ArrayList<Integer> Indexs = new ArrayList<Integer>();
-        for (int i = 0; i < sizeFirstArray; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element second array");
-            firstArr.add(in.nextInt());
+    void SearchForInsertionPlace(ArrayList<Integer> firstArray, ArrayList<Integer> secondArray) {
+        ArrayList<Integer> indexArray = new ArrayList<Integer>();
+        Collections.sort(firstArray);
+        Collections.sort(secondArray);
+        System.out.println(" Second array :" + secondArray);
+        for (int i = 0; i < secondArray.size(); i++) {
+            int tem = Collections.binarySearch(firstArray, secondArray.get(i));
+            if (tem < 0) indexArray.add(-(tem + 1) + i);
+            else indexArray.add(tem + i);
         }
-        Collections.sort(firstArr);
-        System.out.println(" First array :" + firstArr);
-        for (int i = 0; i < sizeSecondArray; i++) {
-            System.out.println("\n Enter the " + (i + 1) + " element second array");
-            SecondArray.add(in.nextInt());
+        System.out.println("Index for insert :" + indexArray);
+        for (int i = 0; i < indexArray.size(); i++) {
+            firstArray.add(indexArray.get(i), secondArray.get(i));
         }
-        Collections.sort(SecondArray);
-        System.out.println(" Second array :" + SecondArray);
-        for (int i = 0; i < SecondArray.size(); i++) {
-            int tem = Collections.binarySearch(firstArr, SecondArray.get(i));
-            if (tem < 0) Indexs.add(-(tem + 1) + i);
-            else Indexs.add(tem + i);
-        }
-        System.out.println(" Index for insert :" + Indexs);
-        for (int i = 0; i < Indexs.size(); i++) firstArr.add(Indexs.get(i), SecondArray.get(i));
-        System.out.println("После вставки " + firstArr);
+        System.out.println("После вставки " + firstArray);
     }
 
-    void ExchangeSorting() {
-        System.out.print("enter the size  array ");
-        index = in.nextInt();
-        int[] InputArray = new int[index];
-        fillarray.fillInt(InputArray);
-        System.out.println("  Array  before sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
-        }
 
-        for (int i = 0; i < InputArray.length - 1; i++) {
-            for (int j = 0; j < InputArray.length - 1 - i; j++) {
-                if (InputArray[j] > InputArray[j + 1]) {
-                    temp = InputArray[j];
-                    InputArray[j] = InputArray[j + 1];
-                    InputArray[j + 1] = temp;
-                    Enumerator++;
-                }
-            }
+/*8.Даны дроби  Составить программу, которая приводит эти дроби к общему
+знаменателю и упорядочивает их в порядке возрастания.*/
 
-        }
-
-        System.out.println("  Array  after sort:");
-        for (int i = 0; i < InputArray.length; i++) {
-            System.out.print(InputArray[i] + " ");
-        }
-        System.out.println("  Number of permutations " + Enumerator);
-    }
-
-    int BinarySearch(int Array[], int low, int high, int key) {
-        int mid;
-
-        if (low == high)
-            return low;
-
-        mid = low + ((high - low) / 2);
-
-        if (key > Array[mid])
-            return BinarySearch(Array, mid + 1, high, key);
-        else if (key < Array[mid])
-            return BinarySearch(Array, low, mid, key);
-
-        return mid;
-    }
-    void  FractionSorting ()
-    {
+    public void sortFraction() {
+        int quantityFractions = 0;
         System.out.println(" Enter the quantity fraction :");
-        quantity = in.nextInt() ;
-        List <Fraction> fs = new ArrayList<>();
-
-        for ( int i = 1; i <= quantity; i++)
-        {
-           System.out.println("denominator " + i);
+        quantityFractions = in.nextInt();
+        List<Fraction> fs = new ArrayList<>();
+        int denominator = 0;
+        int numerator = 0;
+        for (int i = 1; i <= quantityFractions; i++) {
+            System.out.println("denominator " + i);
             denominator = in.nextInt();
             System.out.println("numerator " + i);
             numerator = in.nextInt();
-         fs.add(new Fraction(denominator,numerator));
+            fs.add(new Fraction(denominator, numerator));
         }
-       long lcd = fs.stream().mapToLong(f -> f.d).reduce(1, (d1, d2) -> d1 * d2 / gcd(d1, d2));
-       fs.stream().map(f -> f.setLCD(lcd)).sorted(Fraction::sort).forEach(System.out::println);
+        long lcd = fs.stream().mapToLong(f -> f.d).reduce(1, (d1, d2) -> d1 * d2 / gcd(d1, d2));
+        fs.stream().map(f -> f.setLCD(lcd)).sorted(Fraction::sort).forEach(System.out::println);
     }
+
     static long gcd(long a, long b) {
         long tmp;
         while (b != 0) {
@@ -271,14 +243,17 @@ public class Sorting {
             d = lcd;
             return this;
         }
+
         @Override
         public String toString() {
             return String.format("%d/%d", n, d);
         }
+
         public static int sort(Fraction f1, Fraction f2) {
             return Long.compare(f1.n, f2.n);
         }
     }
+
     private static int randBetween(int start, int end) {
         return start + (int) Math.round(Math.random() * (end - start));
     }
